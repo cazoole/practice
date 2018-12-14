@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>show</title>
+</head>
+<body>
+    <input name="name" value="${data.name}" id="name" placeholder="姓名" />
+    <input name="age" value="${data.age}" id="age" placeholder="年龄" />
+    <input name="gender" value="${data.gender}" id="gender" placeholder="性别" />
+    <input name="hobby" value="${data.hobby==null?string('', data.hobby)}" id="hobby" placeholder="爱好" />
+</body>
+</html>

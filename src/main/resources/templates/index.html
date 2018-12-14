@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="base/common_header::commonHeader('首页')"></head>
+<body>
+    This is my html test.
+
+    <form id="info" action="">
+        <label> hello lable</label>
+        <input type="text" class="aa" name="name" value="" id="name" placeholder="姓名" />
+        <input type="text" class="aa" name="age" value="" id="age" placeholder="年龄" />
+        <input type="text" class="aa" name="gender" value="" id="gender" placeholder="性别" />
+        <input type="text" class="aa" name="hobby" value="" id="hobby" placeholder="爱好" />
+        <input type="button" class="aa" name="button" id="button" placeholder="button" value="button"/>
+
+        <input type="button" id="submit" value="提交"/>
+    </form>
+
+    <div th:include="base/common_footer::copyright"></div>
+</body>
+
+
+<script th:inline="javascript">
+    $(function() {
+       alert("js is ok");
+        
+    });
+</script>
+</html>
