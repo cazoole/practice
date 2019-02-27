@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    name: practice
+    url: jdbc:oracle:thin:@192.168.4.228:1521:testdb
+    type: com.zaxxer.hikari.HikariDataSource
+    username: uss
+    password: uss
+    hikari:
+      connection-test-query: select 1 from dual
+      connection-timeout: 2000
+      validation-timeout: 5000
+      max-lifetime: 60000
+      minimum-idle: 2
+      idle-timeout: 5000
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        oracle:
+          net:
+            CONNECT_TIMEOUT: 5000
+          jdbc:
+            ReadTimeout: 5000
+  freemarker:
+    cache: false
+    charset: UTF-8
+    check-template-location: false
+    suffix: .ftl
+    request-context-attribute: rc
+    content-type:
+      text/html
+  thymeleaf:
+    cache: false
+    mode: HTML5
+server:
+  port: 8081
+
+

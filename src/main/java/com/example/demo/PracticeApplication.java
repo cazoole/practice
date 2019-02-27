@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.remoting.caucho.HessianServiceExporter;
@@ -20,8 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class,
         CassandraAutoConfiguration.class,CassandraDataAutoConfiguration.class,
-        DataSourceAutoConfiguration.class, RedisAutoConfiguration.class,
-        SecurityAutoConfiguration.class})
+        DataSourceAutoConfiguration.class, RedisAutoConfiguration.class})
 @EnableSwagger2
 @EnableCaching
 @EnableRetry
