@@ -10,11 +10,6 @@ public abstract class BasedJob implements Job {
     private String name;
     private String group;
 
-    public BasedJob(String name, String group) {
-        this.name = name;
-        this.group = group;
-    }
-
     public String getName() {
         return name;
     }
