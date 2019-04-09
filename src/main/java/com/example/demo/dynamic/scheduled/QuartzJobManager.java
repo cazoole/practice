@@ -1,6 +1,6 @@
 package com.example.demo.dynamic.scheduled;
 
-import com.example.demo.dynamic.scheduled.jobs.CounterJob1;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,49 +8,21 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class QuartzJobManager {
 
+    // 自动注入时
     @Autowired
     private Scheduler scheduler;
 
-    public void addJob(CounterJob1 currentJob, String cronExpression) throws SchedulerException {
-        scheduler.start();
-        JobDetail jobDetail = JobBuilder.newJob(currentJob.getClass())
-                .withIdentity(currentJob.getName(), currentJob.getGroup())
-                .build();
-
-        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
-        CronTrigger cronTrigger = TriggerBuilder.newTrigger()
-                .withSchedule(cronScheduleBuilder)
-                .withIdentity(currentJob.getName(), currentJob.getGroup())
-                .build();
-
-        scheduler.scheduleJob(jobDetail, cronTrigger);
-    }
-
-    public void updateJob(CounterJob1 currentJob, String cronExpression) throws SchedulerException {
-        TriggerKey triggerKey = TriggerKey.triggerKey(currentJob.getName(), currentJob.getGroup());
-
-        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
-        CronTrigger cronTrigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-
-        cronTrigger.getTriggerBuilder()
-                .withIdentity(triggerKey)
-                .withSchedule(cronScheduleBuilder)
-                .withIdentity(currentJob.getName(), currentJob.getGroup())
-                .build();
-
-        scheduler.rescheduleJob(triggerKey, cronTrigger);
-    }
-
     // 无参数的任务新增
     public void addJob(BasedJob currentJob, String cronExpression) throws SchedulerException {
+        log.info(String.format("begin add job:[jobName = %s, jobGroup = %s, cronExpression = %s]", currentJob.getName(), currentJob.getGroup(), cronExpression));
         scheduler.start();
-
-
 
         // 启动任务
         scheduler.scheduleJob(getJobDetail(currentJob), getCronTrigger(currentJob, cronExpression));
+        log.info(String.format("end add job:[jobName = %s, jobGroup = %s, cronExpression = %s]", currentJob.getName(), currentJob.getGroup(), cronExpression));
     }
 
     // 有参数的任务新增

@@ -1,43 +1,32 @@
 package com.example.demo.dynamic.scheduled.jobs;
 
-import org.quartz.Job;
+import com.example.demo.dynamic.scheduled.BasedJob;
+import com.example.demo.service.RetryServiceDemo;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
-public class CounterJob1 implements Job {
+public class CounterJob1 extends BasedJob {
     static int counter = 0;
-    private String name;
-    private String group;
+
+    @Autowired
+    private RetryServiceDemo retryServiceDemo;
 
     public CounterJob1() {
     }
 
     public CounterJob1(String name, String group) {
         this();
-        this.name = name;
-        this.group = group;
+        this.setName(name == null ? this.getClass().getName() : name);
+        this.setGroup(group == null ? "baseJob" : group);
     }
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println(String.format("第%d次执行Job任务，当前时间：%s", counter++, LocalDateTime.now()));
+        System.out.println(String.format("%s: 第%d次执行Job任务，当前时间：%s", this.getClass().getName(), counter++, LocalDateTime.now()));
+        retryServiceDemo.testRetry();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
 }
